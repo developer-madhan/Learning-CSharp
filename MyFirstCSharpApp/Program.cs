@@ -1,3 +1,4 @@
+using System;
 
 namespace MyFirstCSharpApp
 {
@@ -5,7 +6,8 @@ namespace MyFirstCSharpApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            // This is where the magic happens!
+            Console.WriteLine("Hello LinkedIn! This is my first C# project.");
         }
     }
 }
