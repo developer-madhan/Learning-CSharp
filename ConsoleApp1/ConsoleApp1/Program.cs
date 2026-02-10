@@ -10,6 +10,8 @@ log2.Log("Madhan");
 
 Console.WriteLine(log1==log2);
 
+Console.WriteLine(MathHelper.Add(2, 3));
+
 //Console.WriteLine("Hello, World!");
 //Console.WriteLine($"AppName (const): {ConstantsDemo.AppName}");
 //Console.WriteLine($"MaxRetries (const): {ConstantsDemo.MaxRetries}");
