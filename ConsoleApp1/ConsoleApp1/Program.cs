@@ -1,16 +1,26 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using ConsoleApp1;
 using System;
-Console.WriteLine("Hello, World!");
-Console.WriteLine($"AppName (const): {ConstantsDemo.AppName}");
-Console.WriteLine($"MaxRetries (const): {ConstantsDemo.MaxRetries}");
-Console.WriteLine($"Pi (const): {ConstantsDemo.Pi}");
-Console.WriteLine($"DefaultStatus (const enum): {ConstantsDemo.DefaultStatus}");
-Console.WriteLine($"BuildDate (static readonly, runtime): {ConstantsDemo.BuildDate}");
-Console.WriteLine($"Version (static readonly): {ConstantsDemo.Version}");
+
+Logger log1 = Logger.GetLogger();
+Logger log2 = Logger.GetLogger();
+
+log1.Log("Hello");
+log2.Log("Madhan");
+
+Console.WriteLine(log1==log2);
+
+//Console.WriteLine("Hello, World!");
+//Console.WriteLine($"AppName (const): {ConstantsDemo.AppName}");
+//Console.WriteLine($"MaxRetries (const): {ConstantsDemo.MaxRetries}");
+//Console.WriteLine($"Pi (const): {ConstantsDemo.Pi}");
+//Console.WriteLine($"DefaultStatus (const enum): {ConstantsDemo.DefaultStatus}");
+//Console.WriteLine($"BuildDate (static readonly, runtime): {ConstantsDemo.BuildDate}");
+//Console.WriteLine($"Version (static readonly): {ConstantsDemo.Version}");
 
 // Local const inside a method/top-level scope
-const int LocalTimeout = 30;
-Console.WriteLine($"LocalTimeout (const): {LocalTimeout}");
+//const int LocalTimeout = 30;
+//Console.WriteLine($"LocalTimeout (const): {LocalTimeout}");
 
 // Examples of what you cannot do with const (uncommenting will cause compiler errors):
 // ConstantsDemo.BuildDate = DateTime.UtcNow;           // error: cannot assign to readonly field
