@@ -3,18 +3,18 @@
     // Create a Car class
     class Car
     {
-        public string model;  // Create a field
+        public string model;
 
-        // Create a class constructor for the Car class
-        public Car()
+        // Create a class constructor with a parameter
+        public Car(string modelName)
         {
-            model = "Mustang"; // Set the initial value for model
+            model = modelName;
         }
 
         static void Main(string[] args)
         {
-            Car Ford = new Car();  // Create an object of the Car Class (this will call the constructor)
-            Console.WriteLine(Ford.model);  // Print the value of model
+            Car Ford = new Car("Mustang");
+            Console.WriteLine(Ford.model);
         }
     }
 
