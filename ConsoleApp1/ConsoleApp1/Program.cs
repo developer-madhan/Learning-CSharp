@@ -2,15 +2,23 @@
 using ConsoleApp1;
 using System;
 
-Logger log1 = Logger.GetLogger();
-Logger log2 = Logger.GetLogger();
+//11.02.2026 Multidimensional Arrays and Foreach Loop
+int[,] numbers = { { 1, 4, 2 }, { 3, 6, 8 } };
 
-log1.Log("Hello");
-log2.Log("Madhan");
+foreach (int i in numbers)
+{
+    Console.WriteLine(i);
+}
 
-Console.WriteLine(log1==log2);
+//Logger log1 = Logger.GetLogger();
+//Logger log2 = Logger.GetLogger();
 
-Console.WriteLine(MathHelper.Add(2, 3));
+//log1.Log("Hello");
+//log2.Log("Madhan");
+
+//Console.WriteLine(log1==log2);
+
+//Console.WriteLine(MathHelper.Add(2, 3));
 
 //Console.WriteLine("Hello, World!");
 //Console.WriteLine($"AppName (const): {ConstantsDemo.AppName}");
