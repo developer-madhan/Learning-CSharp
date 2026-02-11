@@ -1,22 +1,46 @@
 ﻿namespace ConsoleApp2
 {
-    // Create a Car class
     class Car
     {
         public string model;
+        public string color;
+        public int year;
 
-        // Create a class constructor with a parameter
-        public Car(string modelName)
+        // Create a class constructor with multiple parameters
+        public Car(string modelName, string modelColor, int modelYear)
         {
             model = modelName;
+            color = modelColor;
+            year = modelYear;
         }
 
         static void Main(string[] args)
         {
-            Car Ford = new Car("Mustang");
-            Console.WriteLine(Ford.model);
+            Car Ford = new Car("Mustang", "Red", 1969);
+            Console.WriteLine(Ford.color + " " + Ford.year + " " + Ford.model);
         }
     }
+
+
+    // Outputs Red 1969 Mustang
+
+    // Create a Car class
+    //class Car
+    //{
+    //    public string model;
+
+    //    // Create a class constructor with a parameter
+    //    public Car(string modelName)
+    //    {
+    //        model = modelName;
+    //    }
+
+    //    static void Main(string[] args)
+    //    {
+    //        Car Ford = new Car("Mustang");
+    //        Console.WriteLine(Ford.model);
+    //    }
+    //}
 
     // Outputs "Mustang"
 
