@@ -5,10 +5,18 @@ using System;
 //11.02.2026 Multidimensional Arrays and Foreach Loop
 int[,] numbers = { { 1, 4, 2 }, { 3, 6, 8 } };
 
-foreach (int i in numbers)
+for (int i = 0; i < numbers.GetLength(0); i++)
 {
-    Console.WriteLine(i);
+    for (int j = 0; j < numbers.GetLength(1); j++)
+    {
+        Console.WriteLine(numbers[i, j]);
+    }
 }
+
+//foreach (int i in numbers)
+//{
+//    Console.WriteLine(i);
+//}
 
 //Logger log1 = Logger.GetLogger();
 //Logger log2 = Logger.GetLogger();
