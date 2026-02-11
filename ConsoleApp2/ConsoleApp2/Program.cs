@@ -2,12 +2,14 @@
 {
     class Car
     {
-        string color = "red";
-        int maxSpeed = 200;
+        string color;
+        int maxSpeed;
 
         static void Main(string[] args)
         {
             Car myObj = new Car();
+            myObj.color = "red";
+            myObj.maxSpeed = 200;
             Console.WriteLine(myObj.color);
             Console.WriteLine(myObj.maxSpeed);
         }
