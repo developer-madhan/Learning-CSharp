@@ -93,7 +93,7 @@ namespace ConsoleApp2
     // ==========================
     // MAIN METHOD
     // ==========================
-    class Program
+   /* class atmProgram
     {
         static void Main(string[] args)
         {
@@ -207,7 +207,6 @@ namespace ConsoleApp2
 
             } while (choice != 5);
         }
-    }
-
+    }*/
 
 }
