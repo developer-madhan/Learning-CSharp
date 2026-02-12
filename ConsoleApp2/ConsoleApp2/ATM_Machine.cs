@@ -5,32 +5,53 @@ using System.Text;
 namespace ConsoleApp2
 {
     // Base class (OOP Concept)
-    class BankAccount
-    {
-        // Data Members (Variables)
-        protected string accountHolderName;
-        protected int accountNumber;
-        protected double balance;
 
-        // Constructor (DAY-12)
-        public BankAccount(string name, int accNo, double initialBalance)
+
+    class ATM
+    {
+        // Variables (Data Members)
+        string accountHolderName;
+        int accountNumber;
+        double balance;
+        int pin;   // Simple password
+
+        // Constructor
+        public ATM(string name, int accNo, double initialBalance, int userPin)
         {
             accountHolderName = name;
             accountNumber = accNo;
             balance = initialBalance;
+            pin = userPin;
         }
 
-        // Method to show account details
-        public void ShowDetails()
+        // Method to check PIN
+        public bool CheckPin(int enteredPin)
         {
-            Console.WriteLine("\n--- Account Details ---");
-            Console.WriteLine("Account Holder: " + accountHolderName);
-            Console.WriteLine("Account Number: " + accountNumber);
-            Console.WriteLine("Current Balance: " + balance);
+            if (enteredPin == pin)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        // Virtual method (Polymorphism - DAY-14)
-        public virtual void Withdraw(double amount)
+        // Method to check balance
+        public void CheckBalance()
+        {
+            Console.WriteLine("Available Balance: " + balance);
+        }
+
+        // Deposit Method
+        public void Deposit(double amount)
+        {
+            balance = balance + amount;
+            Console.WriteLine("Deposit Successful!");
+        }
+
+        // Withdraw Method
+        public void Withdraw(double amount)
         {
             if (amount <= balance)
             {
@@ -43,103 +64,87 @@ namespace ConsoleApp2
             }
         }
 
-        // Deposit Method
-        public void Deposit(double amount)
+        // Show Account Details
+        public void ShowDetails()
         {
-            balance = balance + amount;
-            Console.WriteLine("Deposit Successful!");
-        }
-
-        // Method to check balance
-        public void CheckBalance()
-        {
-            Console.WriteLine("Available Balance: " + balance);
+            Console.WriteLine("\n--- Account Details ---");
+            Console.WriteLine("Name: " + accountHolderName);
+            Console.WriteLine("Account Number: " + accountNumber);
+            Console.WriteLine("Balance: " + balance);
         }
     }
 
-    // Derived class (Inheritance - DAY-13)
-    class ATM : BankAccount
-    {
-        // Constructor calling base constructor
-        public ATM(string name, int accNo, double initialBalance)
-            : base(name, accNo, initialBalance)
-        {
-        }
-
-        // Overriding Withdraw method (Polymorphism)
-        public override void Withdraw(double amount)
-        {
-            Console.WriteLine("Processing ATM Withdrawal...");
-
-            if (amount % 100 != 0)
-            {
-                Console.WriteLine("Enter amount in multiples of 100!");
-            }
-            else
-            {
-                base.Withdraw(amount); // Call parent method
-            }
-        }
-    }
-
-    // Main Class
     class Program
     {
         static void Main(string[] args)
         {
-            // Creating ATM Object (Object Creation - DAY-08)
-            ATM user1 = new ATM("Madhan", 123456, 5000);
+            // Create Object
+            ATM user = new ATM("Madhan", 123456, 5000, 1234);
 
+            int enteredPin;
             int choice;
             double amount;
 
-            // Loop for ATM Menu (DAY-06)
-            do
+            Console.WriteLine("===== Welcome to ATM =====");
+            Console.Write("Enter Your PIN: ");
+            enteredPin = Convert.ToInt32(Console.ReadLine());
+
+            // Password Check
+            if (user.CheckPin(enteredPin))
             {
-                Console.WriteLine("\n===== ATM MACHINE =====");
-                Console.WriteLine("1. Check Balance");
-                Console.WriteLine("2. Deposit");
-                Console.WriteLine("3. Withdraw");
-                Console.WriteLine("4. Account Details");
-                Console.WriteLine("5. Exit");
-                Console.Write("Enter Your Choice: ");
+                Console.WriteLine("Login Successful!");
 
-                choice = Convert.ToInt32(Console.ReadLine());
-
-                // Switch case (DAY-06)
-                switch (choice)
+                // ATM Menu using do-while loop
+                do
                 {
-                    case 1:
-                        user1.CheckBalance();
-                        break;
+                    Console.WriteLine("\n1. Check Balance");
+                    Console.WriteLine("2. Deposit");
+                    Console.WriteLine("3. Withdraw");
+                    Console.WriteLine("4. Account Details");
+                    Console.WriteLine("5. Exit");
+                    Console.Write("Enter Your Choice: ");
 
-                    case 2:
-                        Console.Write("Enter Deposit Amount: ");
-                        amount = Convert.ToDouble(Console.ReadLine());
-                        user1.Deposit(amount);
-                        break;
+                    choice = Convert.ToInt32(Console.ReadLine());
 
-                    case 3:
-                        Console.Write("Enter Withdraw Amount: ");
-                        amount = Convert.ToDouble(Console.ReadLine());
-                        user1.Withdraw(amount);
-                        break;
+                    switch (choice)
+                    {
+                        case 1:
+                            user.CheckBalance();
+                            break;
 
-                    case 4:
-                        user1.ShowDetails();
-                        break;
+                        case 2:
+                            Console.Write("Enter Deposit Amount: ");
+                            amount = Convert.ToDouble(Console.ReadLine());
+                            user.Deposit(amount);
+                            break;
 
-                    case 5:
-                        Console.WriteLine("Thank You! Visit Again.");
-                        break;
+                        case 3:
+                            Console.Write("Enter Withdraw Amount: ");
+                            amount = Convert.ToDouble(Console.ReadLine());
+                            user.Withdraw(amount);
+                            break;
 
-                    default:
-                        Console.WriteLine("Invalid Choice!");
-                        break;
-                }
+                        case 4:
+                            user.ShowDetails();
+                            break;
 
-            } while (choice != 5); // Continue until user selects Exit
+                        case 5:
+                            Console.WriteLine("Thank You! Visit Again.");
+                            break;
+
+                        default:
+                            Console.WriteLine("Invalid Choice!");
+                            break;
+                    }
+
+                } while (choice != 5);
+            }
+            else
+            {
+                Console.WriteLine("Wrong PIN! Access Denied.");
+            }
         }
     }
+
 
 }
