@@ -89,39 +89,6 @@ namespace ConsoleApp2
         }
     }
 
-    // ==========================
-    // Hierarchical Inheritance
-    // Bank -> LoanAccount
-    // ==========================
-    class LoanAccount : Bank
-    {
-        public void LoanInfo()
-        {
-            Console.WriteLine("Loan Facility Available in " + bankName);
-        }
-    }
-
-    // ==========================
-    // Multiple Inheritance
-    // Using Interface
-    // ==========================
-    interface IReceipt
-    {
-        void PrintReceipt();
-    }
-
-    class SmartATM : ATM, IReceipt
-    {
-        public SmartATM(string name, int accNo, double initialBalance, int userPin)
-            : base(name, accNo, initialBalance, userPin)
-        {
-        }
-
-        public void PrintReceipt()
-        {
-            Console.WriteLine("Receipt Printed Successfully");
-        }
-    }
 
     // ==========================
     // MAIN METHOD
@@ -131,7 +98,7 @@ namespace ConsoleApp2
         static void Main(string[] args)
         {
             // Object Creation (Derived Class Object)
-            SmartATM user = new SmartATM("Madhan", 123456, 5000, 1234);
+            ATM user = new ATM("Madhan", 123456, 5000, 1234);
 
             int enteredPin;
             int choice;
@@ -168,8 +135,6 @@ namespace ConsoleApp2
             // PIN Verification
             if (user.CheckPin(enteredPin))
             {
-                Console.WriteLine("Login Successful!");
-
                 // ATM Menu Loop
                 do
                 {
@@ -177,8 +142,7 @@ namespace ConsoleApp2
                     Console.WriteLine("2. Deposit");
                     Console.WriteLine("3. Withdraw");
                     Console.WriteLine("4. Account Details");
-                    Console.WriteLine("5. Print Receipt");
-                    Console.WriteLine("6. Exit");
+                    Console.WriteLine("5. Exit");
                     Console.Write("Enter Your Choice: ");
 
                     choice = Convert.ToInt32(Console.ReadLine());
@@ -205,11 +169,8 @@ namespace ConsoleApp2
                             user.ShowDetails();
                             break;
 
-                        case 5:
-                            user.PrintReceipt();
-                            break;
 
-                        case 6:
+                        case 5:
                             Console.WriteLine("Thank You! Visit Again.");
                             break;
 
@@ -218,16 +179,13 @@ namespace ConsoleApp2
                             break;
                     }
 
-                } while (choice != 6);
+                } while (choice != 5);
             }
             else
             {
                 Console.WriteLine("Wrong PIN! Access Denied.");
             }
 
-            // Hierarchical Example
-            LoanAccount loan = new LoanAccount();
-            loan.LoanInfo();
         }
     }
 
