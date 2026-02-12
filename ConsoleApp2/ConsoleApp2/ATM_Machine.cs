@@ -4,19 +4,17 @@ using System.Text;
 
 namespace ConsoleApp2
 {
-    // Base class (OOP Concept)
-
-
-    class ATM
+    // Base Class
+    class BankAccount
     {
-        // Variables (Data Members)
-        string accountHolderName;
-        int accountNumber;
-        double balance;
-        int pin;   // Simple password
+        // Data Members
+        public string accountHolderName;
+        public int accountNumber;
+        public double balance;
+        public int pin;
 
         // Constructor
-        public ATM(string name, int accNo, double initialBalance, int userPin)
+        public BankAccount(string name, int accNo, double initialBalance, int userPin)
         {
             accountHolderName = name;
             accountNumber = accNo;
@@ -24,7 +22,7 @@ namespace ConsoleApp2
             pin = userPin;
         }
 
-        // Method to check PIN
+        // Check PIN Method
         public bool CheckPin(int enteredPin)
         {
             if (enteredPin == pin)
@@ -37,20 +35,20 @@ namespace ConsoleApp2
             }
         }
 
-        // Method to check balance
+        // Check Balance
         public void CheckBalance()
         {
             Console.WriteLine("Available Balance: " + balance);
         }
 
-        // Deposit Method
+        // Deposit
         public void Deposit(double amount)
         {
             balance = balance + amount;
             Console.WriteLine("Deposit Successful!");
         }
 
-        // Withdraw Method
+        // Withdraw
         public void Withdraw(double amount)
         {
             if (amount <= balance)
@@ -63,8 +61,18 @@ namespace ConsoleApp2
                 Console.WriteLine("Insufficient Balance!");
             }
         }
+    }
 
-        // Show Account Details
+    // Derived Class (Inheritance)
+    class ATM : BankAccount
+    {
+        // Constructor calling Base constructor
+        public ATM(string name, int accNo, double initialBalance, int userPin)
+            : base(name, accNo, initialBalance, userPin)
+        {
+        }
+
+        // Method to show account details
         public void ShowDetails()
         {
             Console.WriteLine("\n--- Account Details ---");
@@ -78,7 +86,7 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            // Create Object
+            // Object Creation (Derived Class Object)
             ATM user = new ATM("Madhan", 123456, 5000, 1234);
 
             int enteredPin;
@@ -89,12 +97,12 @@ namespace ConsoleApp2
             Console.Write("Enter Your PIN: ");
             enteredPin = Convert.ToInt32(Console.ReadLine());
 
-            // Password Check
+            // PIN Verification
             if (user.CheckPin(enteredPin))
             {
                 Console.WriteLine("Login Successful!");
 
-                // ATM Menu using do-while loop
+                // ATM Menu Loop
                 do
                 {
                     Console.WriteLine("\n1. Check Balance");
