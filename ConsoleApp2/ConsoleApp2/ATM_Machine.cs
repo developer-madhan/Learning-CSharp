@@ -97,96 +97,117 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            // Object Creation (Derived Class Object)
             ATM user = new ATM("Madhan", 123456, 5000, 1234);
 
-            int enteredPin;
-            int choice;
-            double amount;
+            int enteredPin = 0;
+            int attempts = 0;
+            bool loginSuccess = false;
 
             user.BankInfo();
-
             Console.WriteLine("===== Welcome to ATM =====");
-            Console.Write("Enter Your PIN: ");
 
-            string? input = Console.ReadLine();
-
-            // TryParse prevents crash
-            if (int.TryParse(input, out enteredPin))
+            //  PIN Attempt Loop (Max 3)
+            while (attempts < 3)
             {
-                // PIN Verification
+                Console.Write("Enter Your PIN: ");
+                string? input = Console.ReadLine();
+
+                if (!int.TryParse(input, out enteredPin))
+                {
+                    Console.WriteLine("Invalid Input! Enter numbers only.");
+                    continue;
+                }
+
                 if (user.CheckPin(enteredPin))
                 {
+                    loginSuccess = true;
                     Console.WriteLine("Login Successful!");
+                    break;
                 }
                 else
                 {
-                    Console.WriteLine("Wrong PIN! Access Denied.");
-                    return;
+                    attempts++;
+                    Console.WriteLine("Wrong PIN! Attempts Left: " + (3 - attempts));
                 }
             }
-            else
+
+            if (!loginSuccess)
             {
-                Console.WriteLine("Invalid Input! Please enter numbers only.");
+                Console.WriteLine("Account Locked. Try Again Later.");
                 return;
             }
 
+            int choice = 0;
+            double amount = 0;
 
-            // PIN Verification
-            if (user.CheckPin(enteredPin))
+            //  ATM Menu Loop
+            do
             {
-                // ATM Menu Loop
-                do
+                Console.WriteLine("\n1. Check Balance");
+                Console.WriteLine("2. Deposit");
+                Console.WriteLine("3. Withdraw");
+                Console.WriteLine("4. Account Details");
+                Console.WriteLine("5. Exit");
+                Console.Write("Enter Your Choice: ");
+
+                string? choiceInput = Console.ReadLine();
+
+                if (!int.TryParse(choiceInput, out choice))
                 {
-                    Console.WriteLine("\n1. Check Balance");
-                    Console.WriteLine("2. Deposit");
-                    Console.WriteLine("3. Withdraw");
-                    Console.WriteLine("4. Account Details");
-                    Console.WriteLine("5. Exit");
-                    Console.Write("Enter Your Choice: ");
+                    Console.WriteLine("Invalid Choice! Enter numbers only.");
+                    continue;
+                }
 
-                    choice = Convert.ToInt32(Console.ReadLine());
+                switch (choice)
+                {
+                    case 1:
+                        user.CheckBalance();
+                        break;
 
-                    switch (choice)
-                    {
-                        case 1:
-                            user.CheckBalance();
-                            break;
+                    case 2:
+                        Console.Write("Enter Deposit Amount: ");
+                        string? depositInput = Console.ReadLine();
 
-                        case 2:
-                            Console.Write("Enter Deposit Amount: ");
-                            amount = Convert.ToDouble(Console.ReadLine());
+                        if (double.TryParse(depositInput, out amount))
+                        {
                             user.Deposit(amount);
-                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid Amount!");
+                        }
+                        break;
 
-                        case 3:
-                            Console.Write("Enter Withdraw Amount: ");
-                            amount = Convert.ToDouble(Console.ReadLine());
+                    case 3:
+                        Console.Write("Enter Withdraw Amount: ");
+                        string? withdrawInput = Console.ReadLine();
+
+                        if (double.TryParse(withdrawInput, out amount))
+                        {
                             user.Withdraw(amount);
-                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid Amount!");
+                        }
+                        break;
 
-                        case 4:
-                            user.ShowDetails();
-                            break;
+                    case 4:
+                        user.ShowDetails();
+                        break;
 
+                    case 5:
+                        Console.WriteLine("Thank You! Visit Again.");
+                        break;
 
-                        case 5:
-                            Console.WriteLine("Thank You! Visit Again.");
-                            break;
+                    default:
+                        Console.WriteLine("Invalid Choice!");
+                        break;
+                }
 
-                        default:
-                            Console.WriteLine("Invalid Choice!");
-                            break;
-                    }
-
-                } while (choice != 5);
-            }
-            else
-            {
-                Console.WriteLine("Wrong PIN! Access Denied.");
-            }
-
+            } while (choice != 5);
         }
     }
+
 
 }
