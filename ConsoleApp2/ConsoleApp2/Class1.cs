@@ -4,25 +4,26 @@ using System.Text;
 
 namespace ConsoleApp2
 {
-    // Abstract class
-    abstract class Animal
+    interface IFirstInterface
     {
-        // Abstract method (does not have a body)
-        public abstract void animalSound();
-        // Regular method
-        public void sleep()
-        {
-            Console.WriteLine("Zzz");
-        }
+        void myMethod(); // interface method
     }
 
-    // Derived class (inherit from Animal)
-    class Pig : Animal
+    interface ISecondInterface
     {
-        public override void animalSound()
+        void myOtherMethod(); // interface method
+    }
+
+    // Implement multiple interfaces
+    class DemoClass : IFirstInterface, ISecondInterface
+    {
+        public void myMethod()
         {
-            // The body of animalSound() is provided here
-            Console.WriteLine("The pig says: wee wee");
+            Console.WriteLine("Some text..");
+        }
+        public void myOtherMethod()
+        {
+            Console.WriteLine("Some other text...");
         }
     }
 
@@ -30,9 +31,40 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            Pig myPig = new Pig();  // Create a Pig object
-            myPig.animalSound();
-            myPig.sleep();
+            DemoClass myObj = new DemoClass();
+            myObj.myMethod();
+            myObj.myOtherMethod();
         }
     }
+    //// Abstract class
+    //abstract class Animal
+    //{
+    //    // Abstract method (does not have a body)
+    //    public abstract void animalSound();
+    //    // Regular method
+    //    public void sleep()
+    //    {
+    //        Console.WriteLine("Zzz");
+    //    }
+    //}
+
+    //// Derived class (inherit from Animal)
+    //class Pig : Animal
+    //{
+    //    public override void animalSound()
+    //    {
+    //        // The body of animalSound() is provided here
+    //        Console.WriteLine("The pig says: wee wee");
+    //    }
+    //}
+
+    //class Program
+    //{
+    //    static void Main(string[] args)
+    //    {
+    //        Pig myPig = new Pig();  // Create a Pig object
+    //        myPig.animalSound();
+    //        myPig.sleep();
+    //    }
+    //}
 }
