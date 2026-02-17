@@ -27,15 +27,15 @@ namespace ConsoleApp2
         }
     }
 
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            DemoClass myObj = new DemoClass();
-            myObj.myMethod();
-            myObj.myOtherMethod();
-        }
-    }
+    //class Program
+    //{
+    //    static void Main(string[] args)
+    //    {
+    //        DemoClass myObj = new DemoClass();
+    //        myObj.myMethod();
+    //        myObj.myOtherMethod();
+    //    }
+    //}
     //// Abstract class
     //abstract class Animal
     //{
