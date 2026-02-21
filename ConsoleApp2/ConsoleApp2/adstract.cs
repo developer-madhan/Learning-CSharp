@@ -9,24 +9,38 @@ namespace ConsoleApp2
         abstract class ATM
         {
             protected double balance = 10000;
-            public abstract void Withdraw();
-            public abstract void Deposit();
+            public abstract void Withdraw(double amount);
+            public abstract void Deposit(double amount);
             public abstract void CheckBalance();
         }
 
         class MyATM : ATM
         {
-            public override void Withdraw()
+            public override void Withdraw(double amount)
             {
-                Console.WriteLine("Withdraw method called");
+                //Console.WriteLine("Withdraw method called");
+                if (amount <= balance)
+                {
+                    balance -= amount;
+                    Console.WriteLine("Withdraw Successful");
+                }
+                else
+                {
+                    Console.WriteLine("Insufficient Balance");
+                }
             }
-            public override void Deposit()
+
+            public override void Deposit(double amount)
             {
-                Console.WriteLine("Deposit method called");
+                //Console.WriteLine("Deposit method called");
+                balance += amount;
+                Console.WriteLine("Deposit Successful");
             }
+
             public override void CheckBalance()
             {
-                Console.WriteLine("Check Balance method called");
+                //Console.WriteLine("Check Balance method called");
+                Console.WriteLine("Balance: " + balance);
             }
         }
 
@@ -50,15 +64,19 @@ namespace ConsoleApp2
                 switch(choice)
                 {
                     case 1:
-                        Console.WriteLine("You have chosen to Withdraw");
-                        atm.Withdraw();
+                        //Console.WriteLine("You have chosen to Withdraw");
+                        Console.Write("Enter amount: ");
+                        double w = Convert.ToDouble(Console.ReadLine());
+                        atm.Withdraw(w);
                         break;
                     case 2:
-                        Console.WriteLine("You have chosen to Deposit");
-                        atm.Deposit();
+                        //Console.WriteLine("You have chosen to Deposit");
+                        Console.Write("Enter amount: ");
+                        double d = Convert.ToDouble(Console.ReadLine());
+                        atm.Deposit(d);
                         break;
                     case 3:
-                        Console.WriteLine("You have chosen to Check Balance");
+                        //Console.WriteLine("You have chosen to Check Balance");
                         atm.CheckBalance();
                         break;
                     case 4:
