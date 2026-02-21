@@ -6,11 +6,35 @@ namespace ConsoleApp2
 {
     class program
     {
+        abstract class ATM
+        {
+            protected double balance = 10000;
+            public abstract void Withdraw();
+            public abstract void Deposit();
+            public abstract void CheckBalance();
+        }
 
+        class MyATM : ATM
+        {
+            public override void Withdraw()
+            {
+                Console.WriteLine("Withdraw method called");
+            }
+            public override void Deposit()
+            {
+                Console.WriteLine("Deposit method called");
+            }
+            public override void CheckBalance()
+            {
+                Console.WriteLine("Check Balance method called");
+            }
+        }
 
         static void Main(string[] args)
         {
             //Console.WriteLine("this is the abstract class example");
+
+            ATM atm = new MyATM();
 
             while (true)
             {
@@ -27,12 +51,15 @@ namespace ConsoleApp2
                 {
                     case 1:
                         Console.WriteLine("You have chosen to Withdraw");
+                        atm.Withdraw();
                         break;
                     case 2:
                         Console.WriteLine("You have chosen to Deposit");
+                        atm.Deposit();
                         break;
                     case 3:
                         Console.WriteLine("You have chosen to Check Balance");
+                        atm.CheckBalance();
                         break;
                     case 4:
                         Console.WriteLine("Exiting the program. Thank you!");
