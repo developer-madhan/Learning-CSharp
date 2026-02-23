@@ -4,6 +4,7 @@ using System.Text;
 
 namespace ConsoleApp2
 {
+    /*
     // ==========================
     // Base Class (Bank)
     // ==========================
@@ -89,7 +90,7 @@ namespace ConsoleApp2
         }
     }
 
-
+    */
     // ==========================
     // MAIN METHOD
     // ==========================

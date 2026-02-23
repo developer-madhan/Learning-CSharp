@@ -4,8 +4,7 @@ using System.Text;
 
 namespace ConsoleApp2
 {
-    class program
-    {
+  
         abstract class ATM
         {
             protected double balance = 10000;
@@ -44,6 +43,8 @@ namespace ConsoleApp2
             }
         }
 
+    class Program
+    {
         static void Main(string[] args)
         {
             //Console.WriteLine("this is the abstract class example");
