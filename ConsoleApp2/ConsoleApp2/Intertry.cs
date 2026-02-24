@@ -2,7 +2,7 @@
 
 namespace ConsoleApp2
 {
-    //  Interface
+    //  Interface 1
     public interface IATMOperations
     {
         void CheckBalance();
@@ -10,20 +10,57 @@ namespace ConsoleApp2
         void Withdraw(decimal amount);
     }
 
-    //  ATM Implementation
-    public class ATM : IATMOperations
+    //  Interface 2
+    public interface ISecurity
     {
-        private decimal balance = 10000; // default balance
+        bool ValidatePin();
+    }
+
+    //  Interface 3
+    public interface IReceipt
+    {
+        void PrintReceipt(string message);
+    }
+
+    //  Multiple inheritance using interfaces
+    public class ATM : IATMOperations, ISecurity, IReceipt
+    {
+        private decimal balance = 10000;
+        private const int pin = 1234;
+
+        //  PIN Validation
+        public bool ValidatePin()
+        {
+            int attempts = 0;
+
+            while (attempts < 3)
+            {
+                Console.Write("Enter PIN: ");
+                string? input = Console.ReadLine();
+
+                if (int.TryParse(input, out int enteredPin) && enteredPin == pin)
+                {
+                    Console.WriteLine("Login Successful\n");
+                    return true;
+                }
+
+                attempts++;
+                Console.WriteLine($"Wrong PIN! Attempts left: {3 - attempts}");
+            }
+
+            Console.WriteLine("Account Locked");
+            return false;
+        }
 
         public void CheckBalance()
         {
-            Console.WriteLine($"Current Balance: {balance}");
+            Console.WriteLine($"Balance: {balance}");
         }
 
         public void Deposit(decimal amount)
         {
             balance += amount;
-            Console.WriteLine($"₹{amount} Deposited Successfully");
+            PrintReceipt($"{amount} Deposited");
         }
 
         public void Withdraw(decimal amount)
@@ -35,8 +72,16 @@ namespace ConsoleApp2
             else
             {
                 balance -= amount;
-                Console.WriteLine($"{amount} Withdrawn Successfully");
+                PrintReceipt($"{amount} Withdrawn");
             }
+        }
+
+        public void PrintReceipt(string message)
+        {
+            Console.WriteLine("----- RECEIPT -----");
+            Console.WriteLine(message);
+            Console.WriteLine($"Available Balance: {balance}");
+            Console.WriteLine("-------------------");
         }
     }
 
@@ -44,53 +89,15 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            int attempts = 0;
-            int enteredPin = 0;
-            bool loginSuccess = false;
+            ATM atm = new ATM();
 
-            //  PIN Login
-            while (attempts < 3)
-            {
-                Console.Write("Enter Your PIN: ");
-                string? inputPin = Console.ReadLine();
-
-                if (!int.TryParse(inputPin, out enteredPin))
-                {
-                    Console.WriteLine("Invalid Input! Numbers only.");
-                    continue;
-                }
-
-                if (enteredPin == 1234)
-                {
-                    loginSuccess = true;
-                    Console.WriteLine("Login Successful!\n");
-                    break;
-                }
-                else
-                {
-                    attempts++;
-                    Console.WriteLine("Wrong PIN! Attempts Left: " + (3 - attempts));
-                }
-            }
-
-            if (!loginSuccess)
-            {
-                Console.WriteLine("Account Locked.");
+            if (!atm.ValidatePin())
                 return;
-            }
-
-            //  ATM Menu
-            IATMOperations atm = new ATM();
 
             while (true)
             {
-                Console.WriteLine("\n===== ATM MENU =====");
-                Console.WriteLine("1. Check Balance");
-                Console.WriteLine("2. Deposit");
-                Console.WriteLine("3. Withdraw");
-                Console.WriteLine("4. Exit");
-                Console.Write("Choose Option: ");
-
+                Console.WriteLine("\n1.Check Balance  2.Deposit  3.Withdraw  4.Exit");
+                Console.Write("Choose: ");
                 string? choice = Console.ReadLine();
 
                 switch (choice)
@@ -100,23 +107,20 @@ namespace ConsoleApp2
                         break;
 
                     case "2":
-                        Console.Write("Enter Deposit Amount: ");
-                        decimal deposit = Convert.ToDecimal(Console.ReadLine());
-                        atm.Deposit(deposit);
+                        Console.Write("Deposit Amount: ");
+                        atm.Deposit(Convert.ToDecimal(Console.ReadLine()));
                         break;
 
                     case "3":
-                        Console.Write("Enter Withdraw Amount: ");
-                        decimal withdraw = Convert.ToDecimal(Console.ReadLine());
-                        atm.Withdraw(withdraw);
+                        Console.Write("Withdraw Amount: ");
+                        atm.Withdraw(Convert.ToDecimal(Console.ReadLine()));
                         break;
 
                     case "4":
-                        Console.WriteLine("Thank You! Visit Again.");
                         return;
 
                     default:
-                        Console.WriteLine("Invalid Option");
+                        Console.WriteLine("Invalid choice");
                         break;
                 }
             }
