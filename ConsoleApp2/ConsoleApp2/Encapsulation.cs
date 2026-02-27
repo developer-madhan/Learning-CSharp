@@ -1,34 +1,21 @@
 ﻿using System;
-/*
+
 namespace ConsoleApp2
 {
-    //  Interface 1
-    public interface IATMOperations
+    public class ATM
     {
-        void CheckBalance();
-        void Deposit(decimal amount);
-        void Withdraw(decimal amount);
-    }
+        // Private fields (Encapsulation)
+        private decimal balance;
+        private int pin;
 
-    //  Interface 2
-    public interface ISecurity
-    {
-        bool ValidatePin();
-    }
+        // Constructor
+        public ATM(decimal initialBalance, int userPin)
+        {
+            balance = initialBalance;
+            pin = userPin;
+        }
 
-    //  Interface 3
-    public interface IReceipt
-    {
-        void PrintReceipt(string message);
-    }
-
-    //  Multiple inheritance using interfaces
-    public class ATM : IATMOperations, ISecurity, IReceipt
-    {
-        private decimal balance = 10000;
-        private const int pin = 1234;
-
-        //  PIN Validation
+        // Encapsulated PIN validation
         public bool ValidatePin()
         {
             int attempts = 0;
@@ -52,36 +39,40 @@ namespace ConsoleApp2
             return false;
         }
 
-        public void CheckBalance()
+        // Encapsulated Balance Access
+        public decimal GetBalance()
         {
-            Console.WriteLine($"Balance: {balance}");
+            return balance;
         }
 
         public void Deposit(decimal amount)
         {
+            if (amount <= 0)
+            {
+                Console.WriteLine("Invalid amount");
+                return;
+            }
+
             balance += amount;
-            PrintReceipt($"{amount} Deposited");
+            Console.WriteLine($"₹{amount} Deposited Successfully");
         }
 
         public void Withdraw(decimal amount)
         {
+            if (amount <= 0)
+            {
+                Console.WriteLine("Invalid amount");
+                return;
+            }
+
             if (amount > balance)
             {
                 Console.WriteLine("Insufficient Balance");
+                return;
             }
-            else
-            {
-                balance -= amount;
-                PrintReceipt($"{amount} Withdrawn");
-            }
-        }
 
-        public void PrintReceipt(string message)
-        {
-            Console.WriteLine("----- RECEIPT -----");
-            Console.WriteLine(message);
-            Console.WriteLine($"Available Balance: {balance}");
-            Console.WriteLine("-------------------");
+            balance -= amount;
+            Console.WriteLine($"₹{amount} Withdrawn Successfully");
         }
     }
 
@@ -89,7 +80,7 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            ATM atm = new ATM();
+            ATM atm = new ATM(10000, 1234);
 
             if (!atm.ValidatePin())
                 return;
@@ -103,7 +94,7 @@ namespace ConsoleApp2
                 switch (choice)
                 {
                     case "1":
-                        atm.CheckBalance();
+                        Console.WriteLine($"Balance: ₹{atm.GetBalance()}");
                         break;
 
                     case "2":
@@ -127,4 +118,3 @@ namespace ConsoleApp2
         }
     }
 }
-*/
