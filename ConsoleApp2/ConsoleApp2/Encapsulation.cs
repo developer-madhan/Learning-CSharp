@@ -4,18 +4,25 @@ namespace ConsoleApp2
 {
     public class ATM
     {
-        // Private fields (Encapsulation)
+        //  Private fields
         private decimal balance;
         private int pin;
 
-        // Constructor
+        // Encapsulated Property
+        public decimal Balance
+        {
+            get { return balance; }
+            private set { balance = value; }
+        }
+
+        //  Constructor
         public ATM(decimal initialBalance, int userPin)
         {
-            balance = initialBalance;
+            Balance = initialBalance;   // using property
             pin = userPin;
         }
 
-        // Encapsulated PIN validation
+        //  PIN validation
         public bool ValidatePin()
         {
             int attempts = 0;
@@ -39,12 +46,7 @@ namespace ConsoleApp2
             return false;
         }
 
-        // Encapsulated Balance Access
-        public decimal GetBalance()
-        {
-            return balance;
-        }
-
+        //  Deposit
         public void Deposit(decimal amount)
         {
             if (amount <= 0)
@@ -53,10 +55,11 @@ namespace ConsoleApp2
                 return;
             }
 
-            balance += amount;
-            Console.WriteLine($"₹{amount} Deposited Successfully");
+            Balance += amount;   // property used
+            Console.WriteLine($"{amount} Deposited");
         }
 
+        // 💸 Withdraw
         public void Withdraw(decimal amount)
         {
             if (amount <= 0)
@@ -65,14 +68,14 @@ namespace ConsoleApp2
                 return;
             }
 
-            if (amount > balance)
+            if (amount > Balance)
             {
                 Console.WriteLine("Insufficient Balance");
                 return;
             }
 
-            balance -= amount;
-            Console.WriteLine($"₹{amount} Withdrawn Successfully");
+            Balance -= amount;   // property used
+            Console.WriteLine($"{amount} Withdrawn");
         }
     }
 
@@ -94,7 +97,7 @@ namespace ConsoleApp2
                 switch (choice)
                 {
                     case "1":
-                        Console.WriteLine($"Balance: ₹{atm.GetBalance()}");
+                        Console.WriteLine($"Balance: {atm.Balance}");
                         break;
 
                     case "2":
@@ -109,10 +112,6 @@ namespace ConsoleApp2
 
                     case "4":
                         return;
-
-                    default:
-                        Console.WriteLine("Invalid choice");
-                        break;
                 }
             }
         }
